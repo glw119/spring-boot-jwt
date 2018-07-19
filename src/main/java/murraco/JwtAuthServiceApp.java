@@ -18,35 +18,43 @@ import murraco.service.UserService;
 @SpringBootApplication
 public class JwtAuthServiceApp implements CommandLineRunner {
 
-  @Autowired
-  UserService userService;
+    @Autowired
+    UserService userService;
 
-  public static void main(String[] args) {
-    SpringApplication.run(JwtAuthServiceApp.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(JwtAuthServiceApp.class, args);
+    }
 
-  @Bean
-  public ModelMapper modelMapper() {
-    return new ModelMapper();
-  }
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
-  @Override
-  public void run(String... params) {
-    User admin = new User();
-    admin.setUsername("admin");
-    admin.setPassword("admin");
-    admin.setEmail("admin@email.com");
-    admin.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_ADMIN)));
+    @Override
+    public void run(String... params) {
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setEmail("admin@email.com");
+        admin.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
 
-    userService.signup(admin);
+        userService.signup(admin);
 
-    User client = new User();
-    client.setUsername("client");
-    client.setPassword("client");
-    client.setEmail("client@email.com");
-    client.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_CLIENT)));
+        User client = new User();
+        client.setUsername("client");
+        client.setPassword("client");
+        client.setEmail("client@email.com");
+        client.setRoles(Collections.singletonList(Role.ROLE_CLIENT));
 
-    userService.signup(client);
-  }
+        userService.signup(client);
+
+        User test = new User();
+        test.setUsername("glw119");
+        test.setPassword("test");
+        test.setEmail("glw119@gmail.com");
+        test.setRoles(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_CLIENT));
+
+        userService.signup(test);
+    }
 
 }
